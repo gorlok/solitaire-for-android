@@ -45,9 +45,13 @@ public class Stats {
     int wins = settings.getInt(gameWinString, 0);
     int bestTime = settings.getInt(gameTimeString, -1);
     int highScore = settings.getInt(gameScoreString, -52);
-    float ratio = 0;
+    int percentage = 0;
     if (attempts > 0) {
-      ratio = (float)wins / (float)attempts * 100.0f;
+      double perc = (float)wins / (float)attempts * 100.0f;
+      percentage = (int)perc;
+      if(perc-(int)perc>=.5){
+        percentage++;
+      }
     }
 
     TextView tv = (TextView)solitaire.findViewById(R.id.text_title);
@@ -55,7 +59,7 @@ public class Stats {
     tv = (TextView)solitaire.findViewById(R.id.text_wins);
     tv.setText("Wins: " + wins + " Attempts: " + attempts);
     tv = (TextView)solitaire.findViewById(R.id.text_percentage);
-    tv.setText("Winning Percentage: " + ratio);
+    tv.setText("Winning Percentage: " + percentage);
     if (bestTime != -1) {
       int seconds = (bestTime / 1000) % 60;
       int minutes = bestTime / 60000;
